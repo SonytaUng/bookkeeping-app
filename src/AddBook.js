@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-const BookkeepingForm = ({ addEntry,  updateEntry, entryToEdit }) => {
+const AddBookForm = ({ addEntry }) => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [description, setDescription] = useState('');
@@ -8,18 +8,6 @@ const BookkeepingForm = ({ addEntry,  updateEntry, entryToEdit }) => {
   const [status, setStatus] = useState('');
   const [category, setCategory] = useState('');
   const [rate, setRate] = useState('');
-
-  useEffect(() => {
-    if (entryToEdit) {
-      setTitle(entryToEdit.title);
-      setAuthor(entryToEdit.author);
-      setDescription(entryToEdit.description);
-      setYear(entryToEdit.year.toString());
-      setStatus(entryToEdit.status);
-      setCategory(entryToEdit.category);
-      setRate(entryToEdit.rate.toString());
-    }
-  }, [entryToEdit]);
 
 
   const handleSubmit = (e) => {
@@ -40,16 +28,6 @@ const BookkeepingForm = ({ addEntry,  updateEntry, entryToEdit }) => {
       rate: parseFloat(rate),
     };
 
-    if (entryToEdit) {
-      // If entryToEdit exists, update the entry
-      updateEntry(entryToEdit.id, entry);
-    } else {
-      // If entryToEdit doesn't exist, add a new entry
-      addEntry(entry);
-    }
-
-
-    // clear the form
     addEntry(entry);
     setTitle('');
     setAuthor('');
@@ -62,8 +40,7 @@ const BookkeepingForm = ({ addEntry,  updateEntry, entryToEdit }) => {
 
   return (
     <div>
-      {/* <h2>Add Book Information:</h2> */}
-      <h2>{entryToEdit ? 'Edit Entry' : 'Add Entry'}</h2>
+      <h2>Add Book Information:</h2>
       <form onSubmit={handleSubmit}>
         <label> Title: </label>
         <input type="text" 
@@ -128,11 +105,10 @@ const BookkeepingForm = ({ addEntry,  updateEntry, entryToEdit }) => {
           max="5"
         />
       
-        {/* <button type="submit">Add</button> */}
-        <button type="submit">{entryToEdit ? 'Update' : 'Add'}</button>
+        <button type="submit">Add</button>
       </form>
     </div>
   );
 };
 
-export default BookkeepingForm;
+export default AddBookForm;
